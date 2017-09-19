@@ -39,8 +39,8 @@ function getPinnedRepos(username) {
   return client
     .query(
       `
-        query {
-          repositoryOwner(login: "${username}") {
+        query ($username: String!) {
+          repositoryOwner(login: $username) {
             ... on User {
               pinnedRepositories(first:6) {
                 edges {
@@ -58,18 +58,17 @@ function getPinnedRepos(username) {
             }
           }
         }
-      `
+      `,
+      { username }
     )
     .then(json =>
-      json.data.repositoryOwner.pinnedRepositories.edges
-        .map(edge => edge.node)
-        .map(repo => ({
-          ...repo,
-          primaryLanguage: undefined,
-          language: repo.primaryLanguage.name,
-          stargazers: undefined,
-          stars: repo.stargazers.totalCount
-        }))
+      json.data.repositoryOwner.pinnedRepositories.edges.map(edge => edge.node).map(repo => ({
+        ...repo,
+        primaryLanguage: undefined,
+        language: repo.primaryLanguage.name,
+        stargazers: undefined,
+        stars: repo.stargazers.totalCount
+      }))
     )
 }
 

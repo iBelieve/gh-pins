@@ -1,0 +1,26 @@
+{
+  "name": "gh-pins",
+  "version": "1.0.0",
+  "description": "Get pinned repositories from GitHub",
+  "main": "index.js",
+  "repository": "https://github.com/iBelieve/gh-pins",
+  "author": "Michael Spencer <sonrisesoftware@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "micro -p 3000"
+  },
+  "dependencies": {
+    "graphql-client": "^2.0.0",
+    "lru-cache": "^4.1.1",
+    "micro": "^9.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.7.0"
+  },
+  "now": {
+    "alias": "gh-pins",
+    "env": {
+      "GITHUB_TOKEN": "@gh-pins-token"
+    }
+  }
+}
